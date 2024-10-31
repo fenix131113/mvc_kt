@@ -94,7 +94,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
-  damage: 25
+  damage: 15
 --- !u!1 &2894410739263666224
 GameObject:
   m_ObjectHideFlags: 0
