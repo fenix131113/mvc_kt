@@ -1,4 +1,5 @@
 ﻿using Player;
+using Player.Data;
 using Spikes;
 using Unity.Mathematics;
 using UnityEngine;
@@ -7,12 +8,11 @@ namespace Core
 {
     public class Bootstrapper : MonoBehaviour
     {
-        [SerializeField] private int playerMaxHealth;
-        [SerializeField] private int playerMoveSpeed;
         [SerializeField] private PlayerView playerPrefab;
         [SerializeField] private InputListener inputListener;
         [SerializeField] private Spike spikePrefab;
         [SerializeField] private Transform spikePoint;
+        [SerializeField] private PlayerDataSO playerData;
         
         private PlayerView _playerView;
         private PlayerController _playerController;
@@ -31,12 +31,12 @@ namespace Core
         {
             // Player
             _playerView = Instantiate(playerPrefab);
-            _playerModel = new PlayerModel(playerMaxHealth);
+            _playerModel = new PlayerModel(playerData.PlayerMaxHealth);
             _playerController = new PlayerController(_playerView, _playerModel);
             
             // Move
             _playerMoveView = _playerView.GetComponent<PlayerMoveView>();
-            _playerMoveModel = new PlayerMoveModel(playerMoveSpeed);
+            _playerMoveModel = new PlayerMoveModel(playerData.PlayerMoveSpeed);
             _playerMoveController = new PlayerMoveController(_playerMoveModel, _playerMoveView);
             inputListener.Init(_playerMoveController);
         }

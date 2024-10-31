@@ -5,8 +5,20 @@ namespace Player
 {
     public class PlayerModel
     {
-        public int Health { get; private set; }
+        public int Health
+        {
+            get => _health;
+
+            private set
+            {
+                _health = value;
+                OnHealthChange?.Invoke();
+            }
+        }
+
         public int MaxHealth { get; private set; }
+
+        private int _health;
 
         public event Action OnHealthChange;
         public event Action OnPlayerDeath;
@@ -21,9 +33,8 @@ namespace Player
         {
             Health += health;
             Health = Mathf.Clamp(Health, 0, int.MaxValue);
-            OnHealthChange?.Invoke();
-            
-            if(Health == 0)
+
+            if (Health == 0)
                 OnPlayerDeath?.Invoke();
         }
     }
